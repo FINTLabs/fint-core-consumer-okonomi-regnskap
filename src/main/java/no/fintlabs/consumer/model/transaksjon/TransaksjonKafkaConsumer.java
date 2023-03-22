@@ -1,5 +1,6 @@
 package no.fintlabs.consumer.model.transaksjon;
 
+import no.fint.model.resource.okonomi.regnskap.TransaksjonResource;
 import no.fintlabs.core.consumer.shared.resource.kafka.EntityKafkaConsumer;
 import no.fintlabs.kafka.common.ListenerBeanRegistrationService;
 import no.fintlabs.kafka.entity.EntityConsumerFactoryService;

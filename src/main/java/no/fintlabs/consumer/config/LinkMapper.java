@@ -1,13 +1,12 @@
 package no.fintlabs.consumer.config;
 
 import com.google.common.collect.ImmutableMap;
-import no.fint.model.DOMAIN.PACKAGE.*;
 
 import java.util.Map;
 
 public class LinkMapper {
 
-    public static Map<String, String> linkMapper(String contextPath) {
+    public static Map<String, String> linkMapper() {
         return ImmutableMap.<String,String>builder()
             .put("no.fint.model.okonomi.regnskap.Transaksjon", "/okonomi/regnskap/transaksjon")
             .put("no.fint.model.okonomi.regnskap.Postering", "/okonomi/regnskap/postering")

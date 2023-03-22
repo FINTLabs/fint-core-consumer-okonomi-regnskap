@@ -57,7 +57,7 @@ public class TransaksjonService extends CacheService<TransaksjonResource> {
         return getCache().getLastUpdatedByFilter(systemId.hashCode(),
                 resource -> Optional
                         .ofNullable(resource)
-                        .map(TransaksjonResource::getSystemId)
+                        .map(TransaksjonResource::getTransaksjonsId)
                         .map(Identifikator::getIdentifikatorverdi)
                         .map(systemId::equals)
                         .orElse(false));

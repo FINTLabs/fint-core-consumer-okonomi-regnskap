@@ -1,6 +1,6 @@
 package no.fintlabs.consumer.model.transaksjon;
 
-import no.fint.model.resource.okonomi.regnskap.TransaksjonResources;
+import no.fint.model.resource.okonomi.regnskap.TransaksjonResource;
 import no.fint.model.resource.okonomi.regnskap.TransaksjonResources;
 import no.fint.relations.FintLinker;
 import org.apache.commons.lang3.StringUtils;
@@ -45,8 +45,8 @@ public class TransaksjonLinker extends FintLinker<TransaksjonResource> {
     @Override
     public Stream<String> getAllSelfHrefs(TransaksjonResource transaksjon) {
         Stream.Builder<String> builder = Stream.builder();
-        if (!isNull(transaksjon.getSystemId()) && !StringUtils.isEmpty(transaksjon.getSystemId().getIdentifikatorverdi())) {
-            builder.add(createHrefWithId(transaksjon.getSystemId().getIdentifikatorverdi(), "systemid"));
+        if (!isNull(transaksjon.getTransaksjonsId()) && !StringUtils.isEmpty(transaksjon.getTransaksjonsId().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(transaksjon.getTransaksjonsId().getIdentifikatorverdi(), "systemid"));
         }
 
         return builder.build();
@@ -54,8 +54,8 @@ public class TransaksjonLinker extends FintLinker<TransaksjonResource> {
 
     int[] hashCodes(TransaksjonResource transaksjon) {
         IntStream.Builder builder = IntStream.builder();
-        if (!isNull(transaksjon.getSystemId()) && !StringUtils.isEmpty(transaksjon.getSystemId().getIdentifikatorverdi())) {
-            builder.add(transaksjon.getSystemId().getIdentifikatorverdi().hashCode());
+        if (!isNull(transaksjon.getTransaksjonsId()) && !StringUtils.isEmpty(transaksjon.getTransaksjonsId().getIdentifikatorverdi())) {
+            builder.add(transaksjon.getTransaksjonsId().getIdentifikatorverdi().hashCode());
         }
 
         return builder.build().toArray();

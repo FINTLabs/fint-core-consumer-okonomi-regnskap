@@ -1,6 +1,6 @@
 package no.fintlabs.consumer.model.leverandor;
 
-import no.fint.model.resource.okonomi.regnskap.LeverandorResources;
+import no.fint.model.resource.okonomi.regnskap.LeverandorResource;
 import no.fint.model.resource.okonomi.regnskap.LeverandorResources;
 import no.fint.relations.FintLinker;
 import org.apache.commons.lang3.StringUtils;

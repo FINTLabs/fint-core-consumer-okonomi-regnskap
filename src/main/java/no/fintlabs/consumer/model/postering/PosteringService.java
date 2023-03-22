@@ -57,7 +57,7 @@ public class PosteringService extends CacheService<PosteringResource> {
         return getCache().getLastUpdatedByFilter(systemId.hashCode(),
                 resource -> Optional
                         .ofNullable(resource)
-                        .map(PosteringResource::getSystemId)
+                        .map(PosteringResource::getPosteringsId)
                         .map(Identifikator::getIdentifikatorverdi)
                         .map(systemId::equals)
                         .orElse(false));

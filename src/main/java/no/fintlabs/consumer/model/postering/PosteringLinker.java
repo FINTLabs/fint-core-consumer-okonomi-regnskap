@@ -1,6 +1,6 @@
 package no.fintlabs.consumer.model.postering;
 
-import no.fint.model.resource.okonomi.regnskap.PosteringResources;
+import no.fint.model.resource.okonomi.regnskap.PosteringResource;
 import no.fint.model.resource.okonomi.regnskap.PosteringResources;
 import no.fint.relations.FintLinker;
 import org.apache.commons.lang3.StringUtils;
@@ -45,8 +45,8 @@ public class PosteringLinker extends FintLinker<PosteringResource> {
     @Override
     public Stream<String> getAllSelfHrefs(PosteringResource postering) {
         Stream.Builder<String> builder = Stream.builder();
-        if (!isNull(postering.getSystemId()) && !StringUtils.isEmpty(postering.getSystemId().getIdentifikatorverdi())) {
-            builder.add(createHrefWithId(postering.getSystemId().getIdentifikatorverdi(), "systemid"));
+        if (!isNull(postering.getPosteringsId()) && !StringUtils.isEmpty(postering.getPosteringsId().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(postering.getPosteringsId().getIdentifikatorverdi(), "systemid"));
         }
 
         return builder.build();
@@ -54,8 +54,8 @@ public class PosteringLinker extends FintLinker<PosteringResource> {
 
     int[] hashCodes(PosteringResource postering) {
         IntStream.Builder builder = IntStream.builder();
-        if (!isNull(postering.getSystemId()) && !StringUtils.isEmpty(postering.getSystemId().getIdentifikatorverdi())) {
-            builder.add(postering.getSystemId().getIdentifikatorverdi().hashCode());
+        if (!isNull(postering.getPosteringsId()) && !StringUtils.isEmpty(postering.getPosteringsId().getIdentifikatorverdi())) {
+            builder.add(postering.getPosteringsId().getIdentifikatorverdi().hashCode());
         }
 
         return builder.build().toArray();
