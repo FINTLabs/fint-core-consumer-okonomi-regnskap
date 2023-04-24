@@ -37,25 +37,24 @@ public class TransaksjonLinker extends FintLinker<TransaksjonResource> {
     }
 
     @Override
-    public String getSelfHref(TransaksjonResource transaksjon) {
-        return getAllSelfHrefs(transaksjon).findFirst().orElse(null);
+    public String getSelfHref(TransaksjonResource resource) {
+        return getAllSelfHrefs(resource).findFirst().orElse(null);
     }
 
-
     @Override
-    public Stream<String> getAllSelfHrefs(TransaksjonResource transaksjon) {
+    public Stream<String> getAllSelfHrefs(TransaksjonResource resource) {
         Stream.Builder<String> builder = Stream.builder();
-        if (!isNull(transaksjon.getTransaksjonsId()) && !StringUtils.isEmpty(transaksjon.getTransaksjonsId().getIdentifikatorverdi())) {
-            builder.add(createHrefWithId(transaksjon.getTransaksjonsId().getIdentifikatorverdi(), "systemid"));
+        if (!isNull(resource.getTransaksjonsId()) && !StringUtils.isEmpty(resource.getTransaksjonsId().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(resource.getTransaksjonsId().getIdentifikatorverdi(), "systemid"));
         }
 
         return builder.build();
     }
 
-    int[] hashCodes(TransaksjonResource transaksjon) {
+    int[] hashCodes(TransaksjonResource resource) {
         IntStream.Builder builder = IntStream.builder();
-        if (!isNull(transaksjon.getTransaksjonsId()) && !StringUtils.isEmpty(transaksjon.getTransaksjonsId().getIdentifikatorverdi())) {
-            builder.add(transaksjon.getTransaksjonsId().getIdentifikatorverdi().hashCode());
+        if (!isNull(resource.getTransaksjonsId()) && !StringUtils.isEmpty(resource.getTransaksjonsId().getIdentifikatorverdi())) {
+            builder.add(resource.getTransaksjonsId().getIdentifikatorverdi().hashCode());
         }
 
         return builder.build().toArray();

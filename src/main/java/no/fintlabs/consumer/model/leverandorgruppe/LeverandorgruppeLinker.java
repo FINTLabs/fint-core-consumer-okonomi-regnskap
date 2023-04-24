@@ -37,25 +37,24 @@ public class LeverandorgruppeLinker extends FintLinker<LeverandorgruppeResource>
     }
 
     @Override
-    public String getSelfHref(LeverandorgruppeResource leverandorgruppe) {
-        return getAllSelfHrefs(leverandorgruppe).findFirst().orElse(null);
+    public String getSelfHref(LeverandorgruppeResource resource) {
+        return getAllSelfHrefs(resource).findFirst().orElse(null);
     }
 
-
     @Override
-    public Stream<String> getAllSelfHrefs(LeverandorgruppeResource leverandorgruppe) {
+    public Stream<String> getAllSelfHrefs(LeverandorgruppeResource resource) {
         Stream.Builder<String> builder = Stream.builder();
-        if (!isNull(leverandorgruppe.getSystemId()) && !StringUtils.isEmpty(leverandorgruppe.getSystemId().getIdentifikatorverdi())) {
-            builder.add(createHrefWithId(leverandorgruppe.getSystemId().getIdentifikatorverdi(), "systemid"));
+        if (!isNull(resource.getSystemId()) && !StringUtils.isEmpty(resource.getSystemId().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(resource.getSystemId().getIdentifikatorverdi(), "systemid"));
         }
 
         return builder.build();
     }
 
-    int[] hashCodes(LeverandorgruppeResource leverandorgruppe) {
+    int[] hashCodes(LeverandorgruppeResource resource) {
         IntStream.Builder builder = IntStream.builder();
-        if (!isNull(leverandorgruppe.getSystemId()) && !StringUtils.isEmpty(leverandorgruppe.getSystemId().getIdentifikatorverdi())) {
-            builder.add(leverandorgruppe.getSystemId().getIdentifikatorverdi().hashCode());
+        if (!isNull(resource.getSystemId()) && !StringUtils.isEmpty(resource.getSystemId().getIdentifikatorverdi())) {
+            builder.add(resource.getSystemId().getIdentifikatorverdi().hashCode());
         }
 
         return builder.build().toArray();

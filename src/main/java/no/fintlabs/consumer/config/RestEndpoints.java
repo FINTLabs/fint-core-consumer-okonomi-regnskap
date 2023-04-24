@@ -8,5 +8,7 @@ public enum RestEndpoints {
     public static final String POSTERING = "/postering";
     public static final String LEVERANDORGRUPPE = "/leverandorgruppe";
     public static final String LEVERANDOR = "/leverandor";
+    public static final String VIRKSOMHET = "/virksomhet";
+    public static final String PERSON = "/person";
 
 }

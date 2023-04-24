@@ -16,6 +16,8 @@ spring:
 fint:
   consumer:
     org-id:
+    domain: okonomi
+    package: regnskap
   kafka:
     application-id: consumer-okonomi-regnskap
     enable-ssl: true
