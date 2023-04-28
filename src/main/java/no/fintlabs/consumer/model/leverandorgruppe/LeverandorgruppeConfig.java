@@ -13,16 +13,6 @@ public class LeverandorgruppeConfig extends ConsumerConfig<LeverandorgruppeResou
     }
 
     @Override
-    protected String domainName() {
-        return "okonomi";
-    }
-
-    @Override
-    protected String packageName() {
-        return "regnskap";
-    }
-
-    @Override
     protected String resourceName() {
         return "leverandorgruppe";
     }

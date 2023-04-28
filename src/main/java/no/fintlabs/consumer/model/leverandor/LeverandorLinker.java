@@ -37,25 +37,24 @@ public class LeverandorLinker extends FintLinker<LeverandorResource> {
     }
 
     @Override
-    public String getSelfHref(LeverandorResource leverandor) {
-        return getAllSelfHrefs(leverandor).findFirst().orElse(null);
+    public String getSelfHref(LeverandorResource resource) {
+        return getAllSelfHrefs(resource).findFirst().orElse(null);
     }
 
-
     @Override
-    public Stream<String> getAllSelfHrefs(LeverandorResource leverandor) {
+    public Stream<String> getAllSelfHrefs(LeverandorResource resource) {
         Stream.Builder<String> builder = Stream.builder();
-        if (!isNull(leverandor.getSystemId()) && !StringUtils.isEmpty(leverandor.getSystemId().getIdentifikatorverdi())) {
-            builder.add(createHrefWithId(leverandor.getSystemId().getIdentifikatorverdi(), "systemid"));
+        if (!isNull(resource.getSystemId()) && !StringUtils.isEmpty(resource.getSystemId().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(resource.getSystemId().getIdentifikatorverdi(), "systemid"));
         }
 
         return builder.build();
     }
 
-    int[] hashCodes(LeverandorResource leverandor) {
+    int[] hashCodes(LeverandorResource resource) {
         IntStream.Builder builder = IntStream.builder();
-        if (!isNull(leverandor.getSystemId()) && !StringUtils.isEmpty(leverandor.getSystemId().getIdentifikatorverdi())) {
-            builder.add(leverandor.getSystemId().getIdentifikatorverdi().hashCode());
+        if (!isNull(resource.getSystemId()) && !StringUtils.isEmpty(resource.getSystemId().getIdentifikatorverdi())) {
+            builder.add(resource.getSystemId().getIdentifikatorverdi().hashCode());
         }
 
         return builder.build().toArray();

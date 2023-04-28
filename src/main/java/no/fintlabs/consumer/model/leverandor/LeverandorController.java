@@ -5,7 +5,8 @@ import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.okonomi.regnskap.LeverandorResource;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
-import no.fintlabs.core.consumer.shared.resource.ConsumerRestController;
+import no.fintlabs.core.consumer.shared.resource.CacheService;
+import no.fintlabs.core.consumer.shared.resource.WriteableConsumerRestController;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 @RequestMapping(name = "Leverandor", value = RestEndpoints.LEVERANDOR, produces = {FintRelationsMediaType.APPLICATION_HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
-public class LeverandorController extends ConsumerRestController<LeverandorResource> {
+public class LeverandorController extends WriteableConsumerRestController<LeverandorResource> {
 
-    public LeverandorController(LeverandorService leverandorService, LeverandorLinker leverandorLinker, FintFilterService oDataFilterService) {
-        super(leverandorService, leverandorLinker, oDataFilterService);
+    public LeverandorController(
+            CacheService<LeverandorResource> cacheService,
+            LeverandorLinker fintLinker,
+            LeverandorConfig leverandorConfig,
+            LeverandorEventKafkaProducer leverandorEventKafkaProducer,
+            LeverandorResponseKafkaConsumer leverandorResponseKafkaConsumer,
+            FintFilterService odataFilterService,
+            LeverandorRequestKafkaConsumer leverandorRequestKafkaConsumer) {
+        super(cacheService, fintLinker, leverandorConfig, leverandorEventKafkaProducer, leverandorResponseKafkaConsumer, odataFilterService, leverandorRequestKafkaConsumer);
     }
 }

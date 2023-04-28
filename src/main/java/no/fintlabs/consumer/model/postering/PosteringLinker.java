@@ -37,25 +37,24 @@ public class PosteringLinker extends FintLinker<PosteringResource> {
     }
 
     @Override
-    public String getSelfHref(PosteringResource postering) {
-        return getAllSelfHrefs(postering).findFirst().orElse(null);
+    public String getSelfHref(PosteringResource resource) {
+        return getAllSelfHrefs(resource).findFirst().orElse(null);
     }
 
-
     @Override
-    public Stream<String> getAllSelfHrefs(PosteringResource postering) {
+    public Stream<String> getAllSelfHrefs(PosteringResource resource) {
         Stream.Builder<String> builder = Stream.builder();
-        if (!isNull(postering.getPosteringsId()) && !StringUtils.isEmpty(postering.getPosteringsId().getIdentifikatorverdi())) {
-            builder.add(createHrefWithId(postering.getPosteringsId().getIdentifikatorverdi(), "systemid"));
+        if (!isNull(resource.getPosteringsId()) && !StringUtils.isEmpty(resource.getPosteringsId().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(resource.getPosteringsId().getIdentifikatorverdi(), "systemid"));
         }
 
         return builder.build();
     }
 
-    int[] hashCodes(PosteringResource postering) {
+    int[] hashCodes(PosteringResource resource) {
         IntStream.Builder builder = IntStream.builder();
-        if (!isNull(postering.getPosteringsId()) && !StringUtils.isEmpty(postering.getPosteringsId().getIdentifikatorverdi())) {
-            builder.add(postering.getPosteringsId().getIdentifikatorverdi().hashCode());
+        if (!isNull(resource.getPosteringsId()) && !StringUtils.isEmpty(resource.getPosteringsId().getIdentifikatorverdi())) {
+            builder.add(resource.getPosteringsId().getIdentifikatorverdi().hashCode());
         }
 
         return builder.build().toArray();
