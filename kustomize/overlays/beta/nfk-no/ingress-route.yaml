@@ -1,0 +1,13 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: fint-core-consumer-okonomi-regnskap
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: "Host(`beta.felleskomponent.no`) && (PathPrefix( `/okonomi/regnskap`) && Headers(`x-org-id`, `nfk.no`)"
+      kind: Rule
+      services:
+        - name: fint-core-consumer-okonomi-regnskap
+          port: 8080
