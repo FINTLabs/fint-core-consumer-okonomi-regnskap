@@ -6,7 +6,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: "Host(`api.felleskomponent.no`) && (PathPrefix( `/okonomi/regnskap`) && Headers(`x-org-id`, `innlandetfylke.no`)"
+    - match: "Host(`api.felleskomponent.no`) && PathPrefix(`/okonomi/regnskap`) && Headers(`x-org-id`, `innlandetfylke.no`)"
       kind: Rule
       services:
         - name: fint-core-consumer-okonomi-regnskap
