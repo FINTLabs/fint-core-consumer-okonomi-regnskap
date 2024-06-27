@@ -1,7 +1,9 @@
 package no.fintlabs.consumer.model.postering;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
+import no.fint.model.resource.felles.PersonResource;
 import no.fint.model.resource.okonomi.regnskap.PosteringResource;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
@@ -27,5 +29,10 @@ public class PosteringController extends WriteableConsumerRestController<Posteri
             FintFilterService odataFilterService,
             PosteringRequestKafkaConsumer posteringRequestKafkaConsumer) {
         super(cacheService, fintLinker, posteringConfig, posteringEventKafkaProducer, posteringResponseKafkaConsumer, odataFilterService, posteringRequestKafkaConsumer);
+    }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("posteringsid", PosteringResource::getPosteringsId);
     }
 }

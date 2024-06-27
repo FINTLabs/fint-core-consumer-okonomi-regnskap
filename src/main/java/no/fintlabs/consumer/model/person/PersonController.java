@@ -1,8 +1,10 @@
 package no.fintlabs.consumer.model.person;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.felles.PersonResource;
+import no.fint.model.resource.okonomi.regnskap.LeverandorgruppeResource;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
 import no.fintlabs.core.consumer.shared.resource.CacheService;
@@ -27,5 +29,10 @@ public class PersonController extends WriteableConsumerRestController<PersonReso
             FintFilterService odataFilterService,
             PersonRequestKafkaConsumer personRequestKafkaConsumer) {
         super(cacheService, fintLinker, personConfig, personEventKafkaProducer, personResponseKafkaConsumer, odataFilterService, personRequestKafkaConsumer);
+    }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("fodselsnummer", PersonResource::getFodselsnummer);
     }
 }

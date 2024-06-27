@@ -1,7 +1,9 @@
 package no.fintlabs.consumer.model.leverandor;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
+import no.fint.model.resource.administrasjon.kodeverk.PersonalressurskategoriResource;
 import no.fint.model.resource.okonomi.regnskap.LeverandorResource;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
@@ -27,5 +29,11 @@ public class LeverandorController extends WriteableConsumerRestController<Levera
             FintFilterService odataFilterService,
             LeverandorRequestKafkaConsumer leverandorRequestKafkaConsumer) {
         super(cacheService, fintLinker, leverandorConfig, leverandorEventKafkaProducer, leverandorResponseKafkaConsumer, odataFilterService, leverandorRequestKafkaConsumer);
+    }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("systemid", LeverandorResource::getSystemId);
+        super.registerIdenficatorHandler("leverandornummer", LeverandorResource::getLeverandornummer);
     }
 }

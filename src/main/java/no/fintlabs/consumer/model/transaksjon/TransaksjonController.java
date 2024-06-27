@@ -1,7 +1,9 @@
 package no.fintlabs.consumer.model.transaksjon;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
+import no.fint.model.resource.okonomi.regnskap.PosteringResource;
 import no.fint.model.resource.okonomi.regnskap.TransaksjonResource;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
@@ -27,5 +29,10 @@ public class TransaksjonController extends WriteableConsumerRestController<Trans
             FintFilterService odataFilterService,
             TransaksjonRequestKafkaConsumer transaksjonRequestKafkaConsumer) {
         super(cacheService, fintLinker, transaksjonConfig, transaksjonEventKafkaProducer, transaksjonResponseKafkaConsumer, odataFilterService, transaksjonRequestKafkaConsumer);
+    }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("transaksjonsid", TransaksjonResource::getTransaksjonsId);
     }
 }

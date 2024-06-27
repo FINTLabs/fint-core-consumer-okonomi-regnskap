@@ -1,7 +1,9 @@
 package no.fintlabs.consumer.model.leverandorgruppe;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
+import no.fint.model.resource.okonomi.regnskap.LeverandorResource;
 import no.fint.model.resource.okonomi.regnskap.LeverandorgruppeResource;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
@@ -27,5 +29,10 @@ public class LeverandorgruppeController extends WriteableConsumerRestController<
             FintFilterService odataFilterService,
             LeverandorgruppeRequestKafkaConsumer leverandorgruppeRequestKafkaConsumer) {
         super(cacheService, fintLinker, leverandorgruppeConfig, leverandorgruppeEventKafkaProducer, leverandorgruppeResponseKafkaConsumer, odataFilterService, leverandorgruppeRequestKafkaConsumer);
+    }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("systemid", LeverandorgruppeResource::getSystemId);
     }
 }
