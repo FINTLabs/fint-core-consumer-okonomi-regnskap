@@ -44,11 +44,11 @@ public class LeverandorgruppeService extends CacheService<LeverandorgruppeResour
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retention = entityKafkaConsumer.registerListener(LeverandorgruppeResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retention);
+        entityKafkaConsumer.registerListener(LeverandorgruppeResource.class, this::addResourceToCache);
     }
 
     private void addResourceToCache(ConsumerRecord<String, LeverandorgruppeResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         LeverandorgruppeResource resource = consumerRecord.value();
         if (resource == null) {

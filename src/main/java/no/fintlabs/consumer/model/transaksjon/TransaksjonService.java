@@ -44,11 +44,11 @@ public class TransaksjonService extends CacheService<TransaksjonResource> {
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retention = entityKafkaConsumer.registerListener(TransaksjonResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retention);
+         entityKafkaConsumer.registerListener(TransaksjonResource.class, this::addResourceToCache);
     }
 
     private void addResourceToCache(ConsumerRecord<String, TransaksjonResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         TransaksjonResource resource = consumerRecord.value();
         if (resource == null) {

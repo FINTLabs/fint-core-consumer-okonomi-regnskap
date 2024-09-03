@@ -44,11 +44,11 @@ public class LeverandorService extends CacheService<LeverandorResource> {
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retention = entityKafkaConsumer.registerListener(LeverandorResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retention);
+        entityKafkaConsumer.registerListener(LeverandorResource.class, this::addResourceToCache);
     }
 
     private void addResourceToCache(ConsumerRecord<String, LeverandorResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         LeverandorResource resource = consumerRecord.value();
         if (resource == null) {
